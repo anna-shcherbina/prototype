@@ -8,16 +8,14 @@ const DomElement = function (selector, height, width, bg, fontSize) {
     this.bg = bg;
     this.fontSize = fontSize;
 
-    this.createElement = function (str) {
-
-        let selector;
-        if (selector = str.charAt(0) === ".") {
+    this.createElement = function () {
+        if (this.selector.charAt(0) === ".") { //если первый символ селектора введен "."
             this.tag = document.createElement('div'); //создали элемент в памяти, на который ссылается переменная tag
-            this.tag.classList.add(str.slice(1)); // добавили класс " " в ваш созданный div
+            this.tag.classList.add(this.selector.slice(1)); // добавили класс " " в созданный div, без первоо символа
 
-        } else if (selector = str.charAt(0) === "#") {
-            this.tag = document.createElement('p'); //создали элемент в памяти, на который ссылается переменная tag
-            this.tag.setAttribute('id', str.slice(1)); //создать атрибут id со значением " "
+        } else if (this.selector.charAt(0) === "#") {
+            this.tag = document.createElement('p'); //создаем параграф в памяти, на который ссылается переменная tag
+            this.tag.setAttribute('id', this.selector.slice(1)); //создать атрибут id со значением " "
         }
 
         this.tag.textContent = "Привет, я твой новый тег!"; // создали текстовый узел, а также вставили его в div
@@ -31,6 +29,7 @@ const DomElement = function (selector, height, width, bg, fontSize) {
 };
 
 let newElement = new DomElement("#block", "100px", "100px", "red", "10px");
-newElement.createElement(newElement.selector);
-console.log(newElement);
-console.log(DomElement.isPrototypeOf(newElement));
+newElement.createElement();
+
+console.log(DomElement.prototype.isPrototypeOf(newElement));
+console.log(newElement instanceof DomElement);
